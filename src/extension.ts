@@ -30,6 +30,12 @@ const cyrb128 = (buff: Uint8Array) => {
 let dir: vscode.Uri
 export async function activate(context: vscode.ExtensionContext) {
 	dir = context.storageUri || context.globalStorageUri
+	console.log({ dir })
+	try {
+		await vscode.workspace.fs.delete(dir, { recursive: true, useTrash: false })
+	} catch (e) {
+		console.log('error deleting existing stuff:', e)
+	}
 	await vscode.workspace.fs.createDirectory(dir)
 
 	const realifyURI = async (uri: vscode.Uri) => {
@@ -95,13 +101,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.window.registerCustomEditorProvider('bun.lockb', provider),
-		vscode.commands.registerCommand('bun.lockb.showDiff', () => {
-			console.log(vscode.window.tabGroups.activeTabGroup)
-		}),
 	)
 }
 
-export async function deactivate() {
-	if (dir)
-		await vscode.workspace.fs.delete(dir, { recursive: true, useTrash: false })
-}
+export async function deactivate() {}
