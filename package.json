@@ -8,7 +8,7 @@
 	},
 	"license": "MIT",
 	"version": "0.0.2",
-	"icon": "./bun.png",
+	"icon": "bun.png",
 	"engines": {
 		"vscode": "^1.75.0"
 	},
