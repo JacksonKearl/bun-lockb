@@ -3,7 +3,12 @@
 	"displayName": "bun.lockb",
 	"publisher": "jaaxxx",
 	"description": "View Bun's bun.lockb files",
-	"version": "0.0.1",
+	"repository": {
+		"url": "https://github.com/JacksonKearl/bun-lockb"
+	},
+	"license": "MIT",
+	"version": "0.0.2",
+	"icon": "./bun.png",
 	"engines": {
 		"vscode": "^1.75.0"
 	},
