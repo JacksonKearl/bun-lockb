@@ -53,9 +53,10 @@ export async function activate(context: vscode.ExtensionContext) {
 	let diffs: Promise<vscode.Uri>[] = []
 
 	const provider: vscode.CustomReadonlyEditorProvider<
-		{ out: string } & vscode.CustomDocument
+		{ out: string; diff?: vscode.Uri[] } & vscode.CustomDocument
 	> = {
 		async openCustomDocument(uri, openContext, token) {
+			console.log('open', uri)
 			let done: (d: vscode.Uri) => void
 
 			diffs.push(new Promise<vscode.Uri>((c) => (done = c)))
@@ -80,21 +81,26 @@ export async function activate(context: vscode.ExtensionContext) {
 
 			done!(lockUri)
 
+			let diff: vscode.Uri[] | undefined = undefined
 			if (diffs.length === 2) {
 				const [lhs, rhs] = diffs
-				diffs = []
-				const resolved = await Promise.all([lhs, rhs])
-				vscode.commands.executeCommand('vscode.diff', ...resolved)
+				diff = await Promise.all([lhs, rhs])
+				vscode.commands.executeCommand('vscode.diff', ...diff)
 			}
 
 			return {
 				uri,
 				dispose: () => {},
 				out: data.stdout,
+				diff,
 			}
 		},
 
 		resolveCustomEditor(document, webviewPanel, token) {
+			console.log('resolve', document.uri)
+			if (document.diff) {
+				vscode.commands.executeCommand('vscode.diff', ...document.diff)
+			}
 			webviewPanel.webview.html = `<pre>` + document.out + `</pre>`
 		},
 	}

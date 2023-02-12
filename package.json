@@ -7,7 +7,7 @@
 		"url": "https://github.com/JacksonKearl/bun-lockb"
 	},
 	"license": "MIT",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"icon": "bun.png",
 	"engines": {
 		"vscode": "^1.75.0"
