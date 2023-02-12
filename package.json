@@ -1,0 +1,45 @@
+{
+	"name": "bun-lockb",
+	"displayName": "bun.lockb",
+	"publisher": "jaaxxx",
+	"description": "View Bun's bun.lockb files",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.75.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [],
+	"main": "./out/extension.js",
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": false,
+			"description": "bun.lockb files are directly executed, a maliciously crafted file could do the nastiest of things"
+		}
+	},
+	"contributes": {
+		"customEditors": [
+			{
+				"viewType": "bun.lockb",
+				"displayName": "bun.lockb viewer",
+				"selector": [
+					{
+						"filenamePattern": "*.lockb"
+					}
+				],
+				"priority": "default"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./"
+	},
+	"devDependencies": {
+		"@types/node": "16.x",
+		"@types/vscode": "^1.75.0",
+		"typescript": "^4.9.4"
+	}
+}
