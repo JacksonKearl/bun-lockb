@@ -106,7 +106,10 @@ export async function activate(context: vscode.ExtensionContext) {
 	}
 
 	context.subscriptions.push(
-		vscode.window.registerCustomEditorProvider('bun.lockb', provider),
+		vscode.window.registerCustomEditorProvider('bun.lockb', provider, {
+			webviewOptions: { enableFindWidget: true },
+			supportsMultipleEditorsPerDocument: true,
+		}),
 	)
 }
 
