@@ -22,10 +22,12 @@ const cyrb128 = (buff: Uint8Array) => {
 
 	return [
 		(h1 ^ h2 ^ h3 ^ h4) >>> 0,
-		(h2 ^ h1) >>> 0,
-		(h3 ^ h1) >>> 0,
-		(h4 ^ h1) >>> 0,
-	].join('')
+		// (h2 ^ h1) >>> 0,
+		// (h3 ^ h1) >>> 0,
+		// (h4 ^ h1) >>> 0,
+	]
+		.map((x) => x.toString(36))
+		.join('')
 }
 let dir: vscode.Uri
 export async function activate(context: vscode.ExtensionContext) {
@@ -56,7 +58,6 @@ export async function activate(context: vscode.ExtensionContext) {
 		{ out: string; diff?: vscode.Uri[] } & vscode.CustomDocument
 	> = {
 		async openCustomDocument(uri, openContext, token) {
-			console.log('open', uri)
 			let done: (d: vscode.Uri) => void
 
 			diffs.push(new Promise<vscode.Uri>((c) => (done = c)))
@@ -84,6 +85,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			let diff: vscode.Uri[] | undefined = undefined
 			if (diffs.length === 2) {
 				const [lhs, rhs] = diffs
+				diffs = []
 				diff = await Promise.all([lhs, rhs])
 				vscode.commands.executeCommand('vscode.diff', ...diff)
 			}
@@ -97,7 +99,6 @@ export async function activate(context: vscode.ExtensionContext) {
 		},
 
 		resolveCustomEditor(document, webviewPanel, token) {
-			console.log('resolve', document.uri)
 			if (document.diff) {
 				vscode.commands.executeCommand('vscode.diff', ...document.diff)
 			}

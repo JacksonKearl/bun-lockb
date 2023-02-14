@@ -7,8 +7,8 @@
 		"url": "https://github.com/JacksonKearl/bun-lockb"
 	},
 	"license": "MIT",
-	"version": "0.0.5",
-	"icon": "bun.png",
+	"version": "0.0.6",
+	"icon": "bun-lock.png",
 	"engines": {
 		"vscode": "^1.75.0"
 	},
@@ -24,6 +24,22 @@
 		}
 	},
 	"contributes": {
+		"languages": [
+			{
+				"id": "bun.lockb",
+				"aliases": [
+					"Bun Lock"
+				],
+				"extensions": [
+					".lockb",
+					".lockb.lock"
+				],
+				"icon": {
+					"dark": "./bun-icon-mini.png",
+					"light": "./bun-icon-mini.png"
+				}
+			}
+		],
 		"customEditors": [
 			{
 				"viewType": "bun.lockb",

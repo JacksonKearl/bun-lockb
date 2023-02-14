@@ -2,7 +2,11 @@
 
 View and compare [Bun](https://bun.sh/)'s `bun.lockb` files directly in vscode!
 
+![demo of operations](giftastic.gif)
+
 Note: Bun must be installed for this to work!
+
+Also Note: Views do not update live! You must close and reopen the file to see changes. 
 
 ## How it works
 
